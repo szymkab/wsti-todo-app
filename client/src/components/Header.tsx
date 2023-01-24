@@ -44,7 +44,7 @@ export const Header = () => {
   return (
     <StyledHeader>
       <Space>
-        <Logo>TK</Logo>
+        <Logo>Todo App</Logo>
         <Menu
           theme="dark"
           mode="horizontal"

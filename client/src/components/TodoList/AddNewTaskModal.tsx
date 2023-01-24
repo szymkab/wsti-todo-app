@@ -1,6 +1,7 @@
-import { Button, Form, Modal } from "antd";
+import { Button, DatePicker, Form, Input, Modal } from "antd";
 import TextArea from "antd/lib/input/TextArea";
 import { Task } from "../../data/types";
+import dayjs from "dayjs";
 
 interface Props {
   isModalVisible?: boolean;
@@ -36,12 +37,30 @@ export const AddNewTaskModal = ({
         autoComplete="off"
       >
         <Form.Item
+          label="Nazwa"
+          name="name"
+          rules={[{ required: true, message: "Wprowadź nazwę zadania!" }]}
+          initialValue={values?.name || ""}
+        >
+          <Input />
+        </Form.Item>
+
+        <Form.Item
           label="Opis"
           name="description"
           rules={[{ required: true, message: "Wprowadź opis!" }]}
           initialValue={values?.description || ""}
         >
           <TextArea />
+        </Form.Item>
+
+        <Form.Item
+          label="Data"
+          name="date"
+          rules={[{ required: true, message: "Wprowadź datę!" }]}
+          initialValue={dayjs(values?.date) || ""}
+        >
+          <DatePicker />
         </Form.Item>
 
         <Form.Item wrapperCol={{ offset: 10, span: 11 }}>

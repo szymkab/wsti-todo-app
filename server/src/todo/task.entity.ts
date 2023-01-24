@@ -29,7 +29,13 @@ export class Task {
   id: number;
 
   @Column({ type: 'text' })
+  name: string;
+
+  @Column({ type: 'text' })
   description: string;
+
+  @Column({ type: 'text' })
+  date: string;
 
   @Column({ type: 'enum', enum: TaskStatus, default: TaskStatus.ToDo })
   status: TaskStatus;

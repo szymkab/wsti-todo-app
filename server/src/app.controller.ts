@@ -37,7 +37,7 @@ export class AppController {
     return this.usersService.findAll();
   }
 
-  @Post('users')
+  @Post('auth/register')
   createUser(@Body() createDto: CreateUserDto) {
     return this.authService.register(createDto);
   }

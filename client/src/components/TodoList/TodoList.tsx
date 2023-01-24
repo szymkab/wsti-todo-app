@@ -32,7 +32,11 @@ export const TodoList = () => {
     fetchTasks();
   }, []);
 
-  const handleTaskFormFinish = async (values: { description: string }) => {
+  const handleTaskFormFinish = async (values: {
+    description: string;
+    date: any;
+  }) => {
+    console.log(values);
     try {
       await fetch("http://localhost:3000/todo", {
         method: "POST",
@@ -40,7 +44,11 @@ export const TodoList = () => {
           "Content-Type": "application/json",
           ...getAuthHeader(),
         },
-        body: JSON.stringify({ ...values, status: 0 }),
+        body: JSON.stringify({
+          ...values,
+          status: 0,
+          date: values.date?.toISOString(),
+        }),
       });
       setTimeout(() => fetchTasks(), 200);
       setIsModalVisible(false);

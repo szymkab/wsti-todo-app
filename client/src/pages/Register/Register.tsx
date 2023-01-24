@@ -1,7 +1,7 @@
 import { Layout, Space, Typography } from "antd";
 import styled from "styled-components";
 import { flexCenter } from "../../common/styles";
-import { LoginForm } from "./LoginForm";
+import { RegisterForm } from "./RegisterForm";
 
 const StyledContent = styled(Layout.Content)`
   ${flexCenter}
@@ -14,13 +14,13 @@ const StyledSpace = styled(Space)`
   width: 50%;
 `;
 
-export const LoginPage = () => {
+export const RegisterPage = () => {
   return (
     <Layout>
       <StyledContent>
         <StyledSpace direction="vertical">
           <Typography.Title>Todo app</Typography.Title>
-          <LoginForm />
+          <RegisterForm />
         </StyledSpace>
       </StyledContent>
     </Layout>

@@ -17,8 +17,12 @@ export class TodoService {
     return user;
   }
 
-  findAll(): Promise<Task[]> {
-    return this.tasksRepository.find({ relations: ['user'] });
+  findAll(user: User): Promise<Task[]> {
+    return this.tasksRepository
+      .createQueryBuilder('task')
+      .leftJoinAndSelect('task.user', 'user')
+      .where('user.id = :userId', { userId: user.id })
+      .getMany();
   }
 
   findOne(id: string): Promise<Task> {

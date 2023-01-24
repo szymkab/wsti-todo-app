@@ -24,6 +24,14 @@ export class UsersService {
     return this.usersRepository.findOneBy({ username });
   }
 
+  findOneWithPassword(username: string): Promise<User> {
+    return this.usersRepository
+      .createQueryBuilder('user')
+      .where('user.username = :username', { username })
+      .addSelect('user.password')
+      .getOne();
+  }
+
   async remove(id: string): Promise<void> {
     await this.usersRepository.delete(id);
   }

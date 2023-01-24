@@ -1,12 +1,19 @@
 import { Card, Checkbox as AntdCheckbox } from "antd";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { Task, TaskStatus } from "../../data/types";
+import dayjs from "dayjs";
 
-const Wrapper = styled.div`
-  margin-bottom: 8px;
-  &:last-child {
-    margin: 0;
-  }
+const Wrapper = styled.div<{ red: boolean }>`
+  ${({ red }) => css`
+    ${red &&
+    css`
+      border: 2px solid #ff0000;
+    `}
+    margin-bottom: 8px;
+    &:last-child {
+      margin: 0;
+    }
+  `}
 `;
 
 const Checkbox = styled(AntdCheckbox)`
@@ -40,11 +47,17 @@ export const TaskCard = ({
   onRemoveClick,
   onCheckClick,
 }: Props) => {
+  const diffInDays = dayjs(task.date).diff(
+    new Date().toISOString().split("T")[0],
+    "days",
+  );
+  const isUrgent = diffInDays < 2;
+
   return (
-    <Wrapper>
+    <Wrapper red={isUrgent}>
       <Card
         size="small"
-        title={`Zadanie ${task.id}`}
+        title={task.name}
         extra={
           <>
             <a href="#" onClick={onEditClick}>
@@ -63,6 +76,10 @@ export const TaskCard = ({
         <p>
           <b>Status: </b>
           {getStatusName(task.status)}
+        </p>
+        <p>
+          <b>Data: </b>
+          {dayjs(task.date).format("DD/MM/YYYY")}
         </p>
         <p>
           <b>

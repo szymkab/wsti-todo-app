@@ -19,8 +19,8 @@ export class TodoController {
 
   @UseGuards(JwtAuthGuard)
   @Get()
-  findAll(): Promise<Task[]> {
-    return this.todoService.findAll();
+  findAll(@Request() req): Promise<Task[]> {
+    return this.todoService.findAll(req.user);
   }
 
   @UseGuards(JwtAuthGuard)

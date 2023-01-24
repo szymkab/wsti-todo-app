@@ -16,7 +16,9 @@ export class AuthService {
     hashedPassword: string,
   ): Promise<Omit<User, 'password'>> {
     try {
-      const { password, ...user } = await this.usersService.findOne(username);
+      const { password, ...user } = await this.usersService.findOneWithPassword(
+        username,
+      );
       const isPasswordMatching = await compare(hashedPassword, password);
       if (!isPasswordMatching) {
         throw new HttpException(
@@ -42,7 +44,7 @@ export class AuthService {
     };
     return {
       username: user.username,
-      userId: user.id,
+      id: user.id,
       firstName: user.firstName,
       lastName: user.lastName,
       access_token: this.jwtService.sign(payload),
