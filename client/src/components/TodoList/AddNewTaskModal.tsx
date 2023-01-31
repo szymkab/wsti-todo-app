@@ -1,7 +1,7 @@
 import { Button, DatePicker, Form, Input, Modal } from "antd";
 import TextArea from "antd/lib/input/TextArea";
 import { Task } from "../../data/types";
-import dayjs from "dayjs";
+import moment from "moment";
 
 interface Props {
   isModalVisible?: boolean;
@@ -18,6 +18,7 @@ export const AddNewTaskModal = ({
 }: Props) => {
   const handleFormFinish = (updatedValues: any) => {
     onFormFinish(values ? { ...values, ...updatedValues } : updatedValues);
+    onCancel();
   };
 
   return (
@@ -58,7 +59,7 @@ export const AddNewTaskModal = ({
           label="Data"
           name="date"
           rules={[{ required: true, message: "Wprowadź datę!" }]}
-          initialValue={dayjs(values?.date) || ""}
+          initialValue={moment(values?.date) || ""}
         >
           <DatePicker />
         </Form.Item>
