@@ -11,7 +11,7 @@ import { TodoModule } from './todo/todo.module';
   imports: [
     TypeOrmModule.forRoot({
       type: 'mysql',
-      host: 'localhost',
+      host: 'todo-app-db', // todo-app-db
       port: 3306,
       username: 'user',
       password: '123',

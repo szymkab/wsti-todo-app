@@ -1,7 +1,7 @@
 version: "2.6"
 
 services:
-  db:
+  todo-app-db:
     image: mysql:5.7
     restart: always
     environment:
@@ -15,6 +15,28 @@ services:
       - "3306"
     volumes:
       - todo-app-db:/var/lib/mysql
+
+  todo-app-server:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    container_name: todo-app-server
+    environment:
+      - DB_SERVER=todo-app-db
+    ports:
+      - 3000:3000
+    links:
+      - todo-app-db
+
+  todo-app-client:
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+    container_name: todo-app-client
+    ports:
+      - 3001:80
+    links:
+      - todo-app-server
 
 volumes:
   todo-app-db:
